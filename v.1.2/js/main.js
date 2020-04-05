@@ -1,101 +1,44 @@
-console.log('mainjs charged')
+console.log('mainjs charged');
 
-function make2DArray(rows, cols) {
-	var arr = new Array(rows); //like arr[]; but with number of columns hardcoded
-	for (var i = 0; i < arr.length; i++) {
-		arr[i] = new Array(cols);
-	}
-	return arr;
-}
+// MAIN VARS
+let mainCanvas;
+let w = window.innerWidth;
+let h = window.innerHeight - 250;
+let planets = [];
+let diameter = 130;
+let multiplier = 10;
 
-let angle = 0;
-let w = 120;
-let cols;
-let rows;
-let curves;
+// RESIZE FUNCTION
+window.onresize = function(event) {
+	mainCanvas = createCanvas(windowWidth - 60, windowHeight - 250);
+	mainCanvas.parent('mainCanvas');
+	background(0);
+};
 
+// SETUP FUNCTION
 function setup() {
-	// Adding the canvas to a specific div
-	let myCanvas = createCanvas(window.innerWidth-60, window.innerHeight-250);
-	myCanvas.parent('theCanvas');
-	console.log('canvas created');
-
-	cols = floor(width / w) - 1;
-	rows = floor(height / w) - 1;
-	curves = make2DArray(rows, cols);
-
-	for (let j = 0; j < rows; j++) {
-		for (let i = 0; i < cols; i++) {
-			curves[j][i] = new Curve();
-		}
+	let mainCanvas = createCanvas(windowWidth - 60, windowHeight - 250);
+	mainCanvas.parent('mainCanvas');
+	background(0);
+	// ROW OF SEVEN PLANETS LIST
+	let cols = 7;
+	for (let i = 0; i < cols; i++) {
+		planets.push(new Planet(w / 7 + 1.23 * diameter * i, h / 2, diameter - 20, i, (i + 1) * multiplier));
+		console.log(planets);
 	}
 }
 
+// DRAW FUNCTION
 function draw() {
-	background(10);
-	let d = w - 0.2 * w;
-	let r = d / 2;
-
-	noFill();
-	stroke(255);
-	for (let i = 0; i < cols; i++) {
-		let cx = w + i * w + w / 2;
-		let cy = w / 2;
-		strokeWeight(1);
-		stroke(255);
-		ellipse(cx, cy, d, d);
-		let x = r * cos(angle * (i + 1) - HALF_PI);
-		let y = r * sin(angle * (i + 1) - HALF_PI);
-		strokeWeight(8);
-		stroke(255);
-		point(cx + x, cy + y);
-		stroke(255, 150);
-		strokeWeight(1);
-		line(cx + x, 0, cx + x, height);
-
-		for (let j = 0; j < rows; j++) {
-			curves[j][i].setX(cx + x);
-		}
-	}
-
-	noFill();
-	stroke(255);
-	for (let j = 0; j < rows; j++) {
-		let cx = w / 2;
-		let cy = w + j * w + w / 2;
-		strokeWeight(1);
-		stroke(255);
-		ellipse(cx, cy, d, d);
-		let x = r * cos(angle * (j + 1) - HALF_PI);
-		let y = r * sin(angle * (j + 1) - HALF_PI);
-		strokeWeight(8);
-		stroke(255);
-		point(cx + x, cy + y);
-		stroke(255, 150);
-		strokeWeight(1);
-		line(0, cy + y, width, cy + y);
-
-		for (let i = 0; i < cols; i++) {
-			curves[j][i].setY(cy + y);
-		}
-	}
-
-	for (let j = 0; j < rows; j++) {
-		for (let i = 0; i < cols; i++) {
-			curves[j][i].addPoint();
-			curves[j][i].show();
-		}
-	}
-
-	angle -= 0.01;
-
-	if (angle < -TWO_PI) {
-		for (let j = 0; j < rows; j++) {
-			for (let i = 0; i < cols; i++) {
-				curves[j][i].reset();
-			}
-		}
-		// saveFrame("lissajous#####.png");
-		angle = 0;
+	// BG
+	background(0);
+	// PLANET CREATION
+	for (let i = 0; i < planets.length; i++) {
+		planets[i].create();
+		// LINE BETWEEN PLANETS CREATION
+		stroke('white');
+		strokeWeight(0.5);
+		line(planets[3].px, planets[3].py, planets[i].px, planets[i].py);
+		// line(planets[i].px, planets[i].py, planets[i+1].px, planets[i+1].py);
 	}
 }
