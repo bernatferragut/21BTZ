@@ -51,7 +51,7 @@ body {
     background-color: var(--main-bg-color);
 }
 
-#theCanvas {
+canvas {
   z-index : 1;
   position: absolute;
   width :100%;
@@ -127,7 +127,7 @@ a:hover {
 /* CSS GRID */
 .grid-container {
   position: relative;
-  /* padding: 20px; */
+  padding: 20px;
   width: 95vw;
   /* GRID */
   display: grid;

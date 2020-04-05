@@ -16,7 +16,7 @@ let curves;
 
 function setup() {
 	// Adding the canvas to a specific div
-	let myCanvas = createCanvas(windowWidth, windowHeight);
+	let myCanvas = createCanvas(window.innerWidth-60, window.innerHeight-250);
 	myCanvas.parent('theCanvas');
 	console.log('canvas created');
 
