@@ -31,14 +31,17 @@ function setup() {
 // DRAW FUNCTION
 function draw() {
 	// BG
-	background(0);
+	background(0,35)
+
 	// PLANET CREATION
 	for (let i = 0; i < planets.length; i++) {
+		// PLANETS CREATION
 		planets[i].create();
 		// LINE BETWEEN PLANETS CREATION
 		stroke('white');
 		strokeWeight(0.5);
-		line(planets[3].px, planets[3].py, planets[i].px, planets[i].py);
-		// line(planets[i].px, planets[i].py, planets[i+1].px, planets[i+1].py);
+		if(i<6) {
+			line(planets[i].px, planets[i].py, planets[i+1].px, planets[i+1].py);
+		}
 	}
 }
