@@ -4,9 +4,11 @@ console.log('mainjs charged');
 let mainCanvas;
 let w = window.innerWidth;
 let h = window.innerHeight - 250;
-let planets = [];
+let planets = []; 
 let diameter = 130;
 let multiplier = 10;
+let colors =['#FF9A80', '#E87B74', '#FF8CAD', '#E874CF','#EC80FF', '#668AFF', '#59D7FF']
+let sizePlanets = [13, 10, 20, 15, 25, 40, 9];
 
 // RESIZE FUNCTION
 window.onresize = function(event) {
@@ -23,7 +25,13 @@ function setup() {
 	// ROW OF SEVEN PLANETS LIST
 	let cols = 7;
 	for (let i = 0; i < cols; i++) {
-		planets.push(new Planet(w / 7 + 1.23 * diameter * i, h / 2, diameter - 20, i, (i + 1) * multiplier));
+		planets.push(new Planet(w/7+1.23*diameter*i, 
+								h/2, 
+								diameter-20, // sizes[i], 
+								colors[i],
+								sizePlanets[i],
+								i, 
+								(i+1)*multiplier));
 		console.log(planets);
 	}
 }
@@ -31,7 +39,7 @@ function setup() {
 // DRAW FUNCTION
 function draw() {
 	// BG
-	background(0,35)
+	background(0,69)
 
 	// PLANET CREATION
 	for (let i = 0; i < planets.length; i++) {
@@ -39,9 +47,9 @@ function draw() {
 		planets[i].create();
 		// LINE BETWEEN PLANETS CREATION
 		stroke('white');
-		strokeWeight(0.5);
+		strokeWeight(0.2);
 		if(i<6) {
-			line(planets[i].px, planets[i].py, planets[i+1].px, planets[i+1].py);
+			line(planets[i].planetX, planets[i].planetY, planets[i+1].planetX, planets[i+1].planetY);
 		}
 	}
 }

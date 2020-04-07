@@ -1,27 +1,29 @@
 console.log('curvejs charged')
 
 class Planet {
-	constructor(x, y, size, id, mult) {
-		this.x = x;
-		this.y = y;
-		this.size = size;
+	constructor(xOrbit, yOrbit, sizeOrbit, color, sizePlanet, id, mult) {
+		this.xOrbit = xOrbit;
+		this.yOrbit = yOrbit;
+		this.sizeOrbit = sizeOrbit;
+		this.color = color;
+		this.sizePlanet = sizePlanet;
 		this.id = id;
 		this.mult = mult;
-		this.px;
-		this.py;
+		this.planetX;
+		this.planetY;
 	}
 
 	create() {
 		// CIRCLE
 		noFill();
-		stroke('white');
-		strokeWeight(1)
-		ellipse(this.x, this.y, this.size, this.size)
+		stroke(this.color);
+		strokeWeight(.1)
+		ellipse(this.xOrbit, this.yOrbit, this.sizeOrbit, this.sizeOrbit)
 		// POINT
-		stroke('white');
-		strokeWeight(10);
-		this.px = this.x + cos(frameCount/this.mult)*this.size/2;
-		this.py = this.y + sin(frameCount/this.mult)*this.size/2;
-		point(this.px,this.py);
+		stroke(this.color);
+		strokeWeight(this.sizePlanet);
+		this.planetX = this.xOrbit + cos(frameCount/this.mult)*this.sizeOrbit/2;
+		this.planetY = this.yOrbit + sin(frameCount/this.mult)*this.sizeOrbit/2;
+		point(this.planetX,this.planetY);
 	}
 }
